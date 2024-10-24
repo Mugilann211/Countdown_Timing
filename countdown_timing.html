@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Game</title>
+    <style>
+      h1{
+        margin-bottom: 20px;
+      }
+      buttons{
+        margin-bottom: 20px;
+      }
+
+      button{
+        padding: 10px,20px;
+        font-size: 17px;
+        margin: 0.5px;
+        cursor: pointer;
+      }
+
+      body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: antiquewhite;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .container{
+        text-align: center;
+        background-color: aquamarine ;
+        padding: 20px;
+        border-radius: 7px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+
+      #timerDisplay{
+        font-size: 45px;
+        color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Countdown Timer</h1>
+      <input type="number" id="timeInput" placeholder="Enter seconds" min="0" />
+      <div>
+        <button id="startBtn">Start</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div id="timerDisplay">0</div>
+    </div>
+    
+
+    <script>
+      const startBtn = document.getElementById("startBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const timeInput = document.getElementById("timeInput");
+      const timerDisplay = document.getElementById("timerDisplay");
+
+      let Countdown;
+      let timeRemaining;
+
+      function startTimer() {
+        let time = parseInt(timeInput.value);
+
+        if (isNaN(time) || time <= 0) {
+          alert("Please enter the valid Number of Seconds");
+          return;
+        }
+
+        timeRemaining = time;
+        timerDisplay.textContent = timeRemaining;
+
+        Countdown = setInterval(() => {
+          timeRemaining--;
+          timerDisplay.textContent = timeRemaining;
+
+          if (timeRemaining <= 0) {
+            clearInterval(Countdown);
+            alert("Time is Up");
+          }
+        }, 1000);
+      }
+
+      function resetTimer() {
+        clearInterval(Countdown);
+        timerDisplay.textContent = 0;
+        timeInput.value = "";
+      }
+
+      startBtn.addEventListener("click", startTimer);
+      resetBtn.addEventListener("click", resetTimer);
+    </script>
+  </body>
+</html>
